@@ -10,6 +10,19 @@ pipeline{
             steps{
                 sh "terraform init"
                 sh "terraform version"
+
+            }
+        }
+
+        stage("terraform fmt"){
+            steps{
+                sh "terraform fmt"
+            }
+
+        }
+
+        stage("terraform apply"){
+            steps{
                 sh "terraform apply --auto-approve"
             }
         }
