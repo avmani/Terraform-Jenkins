@@ -32,6 +32,14 @@ pipeline{
                 sh "terraform destroy --auto-approve"
             }
         }
+
+        stage("Create S3 Bucket"){
+            steps{
+                script{
+                    CreateS3Bucket('my-tf-test-bucket-mani-av')
+                }
+            }
+        }
     }
 
 }
@@ -39,4 +47,9 @@ pipeline{
 def getTerraformPath(){
     def tfHome = tool name: 'terraform-1.1.7', type: 'terraform'
     return tfHome
+}
+
+def CreateS3Bucket(bukcnetname){
+    sh returnStatus: true, script: "aws s3 mb ${bucketName} --region=ap-south-1"
+
 }
